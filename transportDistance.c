@@ -26,6 +26,7 @@ void transportDistance(void* distData) {
         fflush(sigReceiver);
         fclose(sigReceiver);
     }
+    //
     return NULL;
 }
 

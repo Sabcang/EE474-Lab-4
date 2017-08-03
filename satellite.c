@@ -17,9 +17,6 @@
 #include "tcb.h"
 #include "startup.h"
 
-//再问一次看得到不
-//酱紫？
-
 
 // other global variable
 int firstRun;
