@@ -17,9 +17,7 @@
 #include "tcb.h"
 #include "startup.h"
 
-//再问一次看得到不
-//酱紫？
-
+//hahahah
 
 // other global variable
 int firstRun;
@@ -58,7 +56,7 @@ int main(void) {
         if (fmod(timediff,5) == 4) {
             firstRun = 1;
         }
-
+//你好
         // task queue
         while(aTCBPtr != tail) {
             if (priority == aTCBPtr->priority) {

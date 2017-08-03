@@ -16,10 +16,17 @@
 void transportDistance(void* distData) {
     unsigned int frequency;
     FILE *sigReceiver;
-    int value;
-    sigReceiver = fopen("/sys/class/gpio/gpio49", "r");
-    fseek(sigReceiver,0,SEEK_SET);
-    fscanf(sigReceiver, "%d", &value);
+    int value[256];
+    int i;
+    
+    for(i = 0; i < 256; i++) {
+    	sigReceiver = fopen("/sys/class/gpio/gpio49", "r");
+        fseek(sigReceiver,0,SEEK_SET);
+        fscanf(sigReceiver, "%d", &value[i]);
+        fflush(sigReceiver);
+        fclose(sigReceiver);
+    }
+    //
     return NULL;
 }
 
