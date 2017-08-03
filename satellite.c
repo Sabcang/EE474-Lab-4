@@ -17,6 +17,7 @@
 #include "tcb.h"
 #include "startup.h"
 
+//hahahah
 
 // other global variable
 int firstRun;
