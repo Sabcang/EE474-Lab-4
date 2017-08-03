@@ -12,11 +12,23 @@
 #include <semaphore.h>
 #include "tcb.h"
 
-const int EMW_SPEED = 300000000;           // Electromagnetic wave speed in unit [m/s]
 
 void transportDistance(void* distData) {
     unsigned int frequency;
-    //frequency = some data from measurement
-    *(*(Data*)distData).transportDistPtr = EMW_SPEED/frequency;
+    FILE *sigReceiver;
+    int value;
+    sigReceiver = fopen("/sys/class/gpio/gpio49", "r");
+    fseek(sigReceiver,0,SEEK_SET);
+    fscanf(sigReceiver, "%d", &value);
     return NULL;
+}
+
+void edgeDetect(int curr) {
+    static prev = 0;
+    bool result = false;
+    if (0 == prev && 1 == curr) {
+        result = true;
+    }
+    prev = curr;
+    return result;
 }

@@ -434,6 +434,8 @@ void enableModeSel(void) {
     fflush(exp);
     fprintf(exp, "68");
     fflush(exp);
+    fprintf(exp, "49");
+    fflush(exp);
     fclose(exp);
 
     gpio67 = fopen("/sys/class/gpio/gpio67/direction", "w");
