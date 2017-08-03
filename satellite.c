@@ -18,6 +18,7 @@
 #include "startup.h"
 
 //hahahah
+//sagduashdi
 
 // other global variable
 int firstRun;
