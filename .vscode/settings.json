@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "unistd.h": "c",
+        "tcb.h": "c",
+        "os_defines.h": "c",
+        "_null.h": "c",
+        "assert.h": "c",
+        "signal.h": "c",
+        "time.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c",
+        "_pthread_t.h": "c",
+        "math.h": "c",
+        "pthread.h": "c",
+        "types.h": "c"
+    }
+}
