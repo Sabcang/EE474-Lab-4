@@ -18,7 +18,7 @@
 #define IMAGE_DATA_RAW_PTR (*(Data*)captureData).imageDataRawPtr
 #define REAL_X_PTR         (*(Data*)captureData).xPtr
 #define IMAG_W_PTR  	   (*(Data*)captureData).wPtr
-#define IMAG_M_PTR  	   (*(Data*)captureData).mPtr
+
 
 void fft(COMPLEX*, COMPLEX*, unsigned int);
 int terminal0;
@@ -44,7 +44,8 @@ void imageCapture(void* captureData) {
 	    fscanf(ain5, "%u", &real[i]); // write analog value to buffer
     	fclose(ain5);
     }
-    // fft(&real[0], &img[0], 8);
+
+    //fft(&real[0], &img[0], 8);
 
     for (i=0; i<256;i++) {
     	&real[i] = *(REAL_X_PTR+i);
@@ -62,7 +63,7 @@ void imageCapture(void* captureData) {
     	}
     }
 
-    N = 1 << IMAG_M_PTR;
+    N = 1 << 8;
     f=fs*m_index/N;
 
     //The 16 most recent frequency values retained in a buffer

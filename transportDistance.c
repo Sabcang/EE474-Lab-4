@@ -14,11 +14,13 @@
 
 #define TRANSPORT_DIST = *(*(Data*)distData).transportDistPtr
 
+int terminal0
 bool edgeDetect(int);
 void transportDistance(void* distData) {
     double frequency;
     FILE *sigReceiver;
     int value[256];
+    int transportDistance[8];
     int i;
     clock_t start_t, end_t;
     start_t = clock();
@@ -35,7 +37,19 @@ void transportDistance(void* distData) {
     }
     frequency = round(counter / totalT);
 
-    TRANSPORT_DIST = 300000000 / frequency / 2;
+    TRANSPORT_DIST = (unsigned short)(300000000 / frequency / 2);
+
+    if(TRANSPORT_DIST>=(unsigned short)(1.1*transportDistance[0])
+    |TRANSPORT_DIST<=(unsigned short)(0.9*transportDistance[0])) {
+        //store in a circular 8 reading buffer
+        for(i=15; i>0, i--) {
+            transportDistance[i] = transportDistance[i-1];
+        }
+        transportDistance[0] = TRANSPORT_DIST;
+    }
+    
+    dprintf(terminal0, "The distance between the satellite and the approaching transport is %i m\n", TRANSPORT_DIST);
+
     return NULL;
 }
 
