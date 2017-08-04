@@ -35,7 +35,15 @@ void imageCapture(void* captureData) {
     int maxMagSqu = 0;
     int MagSqu = 0;
     
-
+    FILE* ain5;
+    int i;
+    clock_t start_t, end_t;
+    for(i = 0; i < 256; i++) {
+    	ain5 = fopen("/sys/devices/ocp.3/helper.15/AIN5", "r");
+		fseek(ain5,0,SEEK_SET); // go to beginning of buffer
+	    fscanf(ain5, "%u", &real[i]); // write analog value to buffer
+    	fclose(ain5);
+    }
     // fft(&real[0], &img[0], 8);
 
     for (i=0; i<256;i++) {

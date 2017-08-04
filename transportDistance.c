@@ -12,25 +12,34 @@
 #include <semaphore.h>
 #include "tcb.h"
 
+#define TRANSPORT_DIST = *(*(Data*)distData).transportDistPtr
 
+bool edgeDetect(int);
 void transportDistance(void* distData) {
-    unsigned int frequency;
+    double frequency;
     FILE *sigReceiver;
     int value[256];
     int i;
-    
+    clock_t start_t, end_t;
+    start_t = clock();
     for(i = 0; i < 256; i++) {
     	sigReceiver = fopen("/sys/class/gpio/gpio49", "r");
-        fseek(sigReceiver,0,SEEK_SET);
         fscanf(sigReceiver, "%d", &value[i]);
-        fflush(sigReceiver);
         fclose(sigReceiver);
     }
-    //
+    end_t = clock();
+    double totalT = (double)(end_t - start_t)/ CLOCKS_PER_SEC;
+    int counter = 0;
+    for (i = 0; i < 256; i++) {
+        counter += edgeDetect(value[i]);
+    }
+    frequency = round(counter / totalT);
+
+    TRANSPORT_DIST = 300000000 / frequency / 2;
     return NULL;
 }
 
-void edgeDetect(int curr) {
+bool edgeDetect(int curr) {
     static prev = 0;
     bool result = false;
     if (0 == prev && 1 == curr) {
