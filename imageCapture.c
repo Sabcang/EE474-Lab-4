@@ -35,6 +35,9 @@ void imageCapture(void* captureData) {
     int maxMagSqu = 0;
     int MagSqu = 0;
     
+
+    // fft(&real[0], &img[0], 8);
+
     for (i=0; i<256;i++) {
     	&real[i] = *(REAL_X_PTR+i);
     }
@@ -42,6 +45,7 @@ void imageCapture(void* captureData) {
     	&imag[i] = *(IMAG_W_PTR+i);
     }
 
+    //find the index which corresponds to the maximum magnitude
     for (i=0; i<256;i++) {
     	MagSqu = real[i]*real[i]+imag[i]*imag[i];
     	if (MagSqu > maxMagSqu) {
@@ -52,7 +56,18 @@ void imageCapture(void* captureData) {
 
     N = 1 << IMAG_M_PTR;
     f=fs*m_index/N;
+
+    //The 16 most recent frequency values retained in a buffer
+    for(i=15; i>0, i--) {
+        frequency[i] = frequency[i-1];
+    }
+    frequency[0] = f;
     dprintf(terminal0, "Image frequency is %f\n", f);
+
+    //initialize the input imaginary buffer to zero
+    for (i=0; i<256; i++) {
+        imag[i] = 0;
+    }
 
     return NULL;
 }
