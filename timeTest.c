@@ -41,9 +41,12 @@ Data powerData, solarPanelControlData, thrusterData, satelliteComsData,
 TCB *head, *tail, *aTCBPtr;
 
 int main(void) {
-    startup();
-    int i;
-    for(i = 0; i < 100; i++) {
-        power(powerTCB.taskDataPtr);
-    }
+    clock_t a, b;
+    a = clock();
+    int i,j;
+    vehicle(vehicleComsData);
+    b = clock();
+    int c = b - a;
+        float totalT = (double)(b - a)/ CLOCKS_PER_SEC;
+    printf("%.10lf\n", totalT);
 }
